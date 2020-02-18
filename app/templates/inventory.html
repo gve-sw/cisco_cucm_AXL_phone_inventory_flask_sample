@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="The design system sponsored by Cisco Brand">
+        <meta name="image" content="http://cisco-ui.cisco.com/assets/img/uikit-1200x630%402x.png">
+        <meta itemprop="name" content="Cisco UI Kit">
+        <meta itemprop="description" content="The design system sponsored by Cisco Brand">
+        <meta itemprop="image" content="http://cisco-ui.cisco.com">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Cisco UI Kit">
+        <meta name="twitter:description" content="The design system sponsored by Cisco Brand">
+        <meta property="og:title" content="Cisco UI Kit">
+        <meta property="og:description" content="The design system sponsored by Cisco Brand">
+        <meta property="og:image" content="https://cisco-ui.cisco.com/assets/img/uikit-1200x630%402x.png">
+        <meta property="og:url" content="http://cisco-ui.cisco.com">
+        <meta property="og:site_name" content="Cisco UI Kit">
+        <meta property="og:locale" content="en_US">
+        <meta property="og:type" content="website">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="img/apple-touch-icon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="60x60" href="img/apple-touch-icon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="img/apple-touch-icon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="img/apple-touch-icon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="img/apple-touch-icon.png">
+        <link rel="icon" type="image/png" href="img/favicon.png" sizes="196x196">
+        <link rel="icon" type="image/png" href="img/favicon.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="img/favicon.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="img/favicon.png" sizes="16x16">
+        <link rel="icon" type="image/png" href="img/favicon.png" sizes="128x128">
+        <link rel="icon" href="img/favicon.png" type="image/x-icon">
+        <meta name="application-name" content="CUCM Inventory Page">
+        <meta name="msapplication-TileColor" content="#FFFFFF">
+        <meta name="msapplication-TileImage" content="img/mstile.png">
+        <meta name="msapplication-square70x70logo" content="img/mstile.png">
+        <meta name="msapplication-square150x150logo" content="img/mstile.png">
+        <meta name="msapplication-wide310x150logo" content="img/mstile.png">
+        <meta name="msapplication-square310x310logo" content="img/mstile.png">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>CUCM Inventory Page</title>
+        
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/cui-standard.min.css') }}">
+
+        <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
+        <script src="../public/js/styleguide.js"></script>
+        <script>
+            function myFunction() {
+              var input, filter, table, tr, td, i, txtValue;
+              input = document.getElementById("myInput");
+              filter = input.value.toUpperCase();
+              table = document.getElementById("myTable");
+              tr = table.getElementsByTagName("tr");
+              for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                  txtValue = td.textContent || td.innerText;
+                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                  } else {
+                    tr[i].style.display = "none";
+                  }
+                }       
+              }
+            }
+            </script>
+
+        <script type="text/javascript">
+            function downloadCSV(csv, filename) {
+                var csvFile;
+                var downloadLink;
+                // CSV file
+                csvFile = new Blob([csv], { type: "text/csv" });
+                // Download link
+                downloadLink = document.createElement("a");
+                // File name
+                downloadLink.download = filename;
+                // Create a link to the file
+                downloadLink.href = window.URL.createObjectURL(csvFile);
+                // Hide download link
+                downloadLink.style.display = "none";
+                // Add the link to DOM
+                document.body.appendChild(downloadLink);
+                // Click download link
+                downloadLink.click();
+            }
+
+            function exportTableToCSV(filename) {
+                var csv = [];
+                var rows = document.querySelectorAll("table tr");
+
+                for (var i = 0; i < rows.length; i++) {
+                    var row = [], cols = rows[i].querySelectorAll("td, th");
+
+                    for (var j = 0; j < cols.length; j++)
+                        row.push(cols[j].innerText);
+
+                    csv.push(row.join(","));
+                }
+                // Download CSV file
+                downloadCSV(csv.join("\n"), filename);
+            }
+
+
+        </script>
+    </head>
+    <body class="cui">
+        <nav class="header" id="styleguideheader" role="navigation">
+            <div class="container-fluid">
+                <div class="header-panels">
+                    <div class="header-panel hidden-md-down">
+                        <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                            <span class="icon-cisco"></span>
+                        </a>
+                        <h1 class="header__title">
+                            <span>Device Inventory Page</span>
+                        </h1>
+                    </div>
+                    <div class="header-panel header-panel--center base-margin-left base-margin-right hidden-lg-up">
+                        <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                            <span class="icon-cisco"></span>
+                        </a>
+                    </div>
+                    <div class="header-panel header-panel--right hidden-md-down">
+                        <button class="btn btn--secondary" onclick="exportTableToCSV('clientInfo.csv')">Export To CSV</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="section">
+                    <div class="flex-center-vertical">
+                        <h1>Devices</h1>
+                        <div class="flex-fluid text-right">
+                            <p class="lead hidden-sm-down">{{num_devices}} Devices total</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="form-group label--floated input--icon">
+                        <div class="form-group__text" id="search_div">
+                            <input type="text" style="width:100%;" class="hover" id="myInput" placeholder="Model Filter" onkeyup="myFunction()">
+                            <button type="button" class="link" tabindex="-1">
+                                <span class="icon-search"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="responsive-table">
+                        <table class="table table--lined table--selectable">
+                            <thead>
+                                <tr>
+                                    {% for attribute in header %}
+                                    <th class="text-center">{{attribute}}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody id="myTable">
+                                {% for device in devices %}
+                                <tr>
+                                    <td class="hidden-md-down">{{device.name}}</td>
+                                    <td class="hidden-md-down">{{device.model}}</td>
+                                    <td class="hidden-md-down">{{device.networkLocation}}</td>
+                                    <td class="hidden-md-down">{{device.product}}</td>
+                                    <td class="hidden-md-down">{{device.protocol_side}}</td>
+                                    <td class="hidden-md-down">{{device.callingSearchSpaceName}}</td>
+                                    <td class="hidden-md-down">{{device.devicePoolName}}</td>
+                                    <td class="hidden-md-down">{{device.commonDeviceConfigName}}</td>
+                                    <td class="hidden-md-down">{{device.commonPhoneConfigName}}</td>
+                                    <td class="hidden-md-down">{{device.locationName}}</td>
+                                    <td class="hidden-md-down">{{device.mediaResourceListName}}</td>
+                                    <td class="hidden-md-down">{{device.userHoldMohAudioSourceId}}</td>
+                                    <td class="hidden-md-down">{{device.traceFlag}}</td>
+                                    <td class="hidden-md-down">{{device.mlppIndicationStatus}}</td>
+                                    <td class="hidden-md-down">{{device.preemption}}</td>
+                                    <td class="hidden-md-down">{{device.useTrustedRelayPoint}}</td>
+                                    <td class="hidden-md-down">{{device.retryVideoCallAsAudio}}</td>
+                                    <td class="hidden-md-down">{{device.securityProfileName}}</td>
+                                    <td class="hidden-md-down">{{device.sipProfileName}}</td>
+                                    <td class="hidden-md-down">{{device.cgpnTransformationCssName}}</td>
+                                    <td class="hidden-md-down">{{device.useDevicePoolCgpnTransformCss}}</td>
+                                    <td class="hidden-md-down">{{device.geoLocationName}}</td>
+                                    <td class="hidden-md-down">{{device.geoLocationFilterName}}</td>
+                                    <td class="hidden-md-down">{{device.sendGeoLocation}}</td>
+                                    <td class="hidden-md-down">{{device.numberOfButtons}}</td>
+                                    <td class="hidden-md-down">{{device.phoneTemplateName}}</td>
+                                    <td class="hidden-md-down">{{device.primaryPhoneName}}</td>
+                                    <td class="hidden-md-down">{{device.ringSettingIdleBlfAudibleAlert}}</td>
+                                    <td class="hidden-md-down">{{device.ringSettingBusyBlfAudibleAlert}}</td>
+                                    <td class="hidden-md-down">{{device.userLocale}}</td>
+                                    <td class="hidden-md-down">{{device.networkLocale}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody id="myTable">
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="footer__links">
+                    <ul class="list list--inline">
+                        <li><a href="http://www.cisco.com/cisco/web/siteassets/contacts/index.html" target="_blank">Contacts</a></li>
+                        <li><a href="https://secure.opinionlab.com/ccc01/o.asp?id=jBjOhqOJ" target="_blank">Feedback</a></li>
+                        <li><a href="https://www.cisco.com/c/en/us/about/help.html" target="_blank">Help</a></li>
+                        <li><a href="http://www.cisco.com/c/en/us/about/sitemap.html" target="_blank">Site Map</a></li>
+                        <li><a href="https://www.cisco.com/c/en/us/about/legal/terms-conditions.html" target="_blank">Terms & Conditions</a></li></li>
+                        <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html" target="_blank">Privacy Statement</a></li>
+                        <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html#cookies" target="_blank">Cookie Policy</a></li>
+                        <li><a href="https://www.cisco.com/c/en/us/about/legal/trademarks.html" target="_blank">Trademarks</a></li>
+                    </ul>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>
