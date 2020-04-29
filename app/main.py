@@ -14,25 +14,48 @@ from flask import Flask, render_template, request
 import json
 import requests
 import time
-import list_subscribers_and_phones
+import functions
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def main():
 
-    list_of_devices = list_subscribers_and_phones.listPhones()
-    device = list_of_devices[0]
-    num_device = len(list_of_devices)
-    header = []
+    # this will be the header for the html table to display the set of information
+    header = ['Name','model','ip_address','serial','network_loc','product','location']
+    device_list = []
 
-    for key in device.keys():
-        header.append(key)
-        print(key)
+    # makes call to retrieve a list of devices with several attributes from the CUCM evironment 
+    # axl is for administrative details like phone name, location, model, product etc
+    # risport of for realtimeservice like ip address 
+    list_of_devices_axl = functions.axl_request()
+    list_of_devices_risport = functions.risport_request()
 
-    return render_template('inventory.html', devices = list_of_devices, num_devices = num_device, header = header)
+    for index1, device_risport in enumerate(list_of_devices_risport):
+        for index2, device_axl in enumerate(list_of_devices_axl):
+
+            if device_risport["Name"] == device_axl["name"]:
+                device = {}
+                print("device created for ",device_axl["name"])
+
+                device["name"] = device_axl["name"]
+                device["ip_address"] = device_risport["IpAddress"]
+                device["model"] = device_axl["model"]
+                device["networkLocation"] = device_axl["networkLocation"]
+                device["product"] = device_axl["product"] 
+                device["locationName"] = device_axl["locationName"]
+                
+                if device["ip_address"] is None:
+                    device["serial_number"] = "unassigned"
+                else:
+                    # calling function to retrieve serial number based on IP address (visiting the phone web page)
+                    device["serial_number"] = functions.get_serial(device["ip_address"])
+
+                device_list.append(device)
+
+    return render_template('inventory.html', devices = device_list, num_devices = len(device_list), header = header)
 
 if __name__ == "__main__":
+#you may enter a routable ip address and uncomment the command
     #app.run(host='*ip address*')
     app.run(debug=True)

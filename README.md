@@ -1,12 +1,18 @@
 # cucm_phone_inventory
 Flask web app that displays several information details about all the phone endpoints from your CUCM environment
 
-In this sample, you will be able to see an example of a front-end and back-end solution that utilizes the Administrative XML Layer (AXL) API for Cisco Unified Communications Manager with python to view a list of all your phone endpoints.
+In this sample, you will be able to see an example of a front-end and back-end solution that utilizes the Administrative XML Layer (AXL) API and Risport (realtimeservice) API for Cisco Unified Communications Manager with python to view a list of all your phone endpoints.
 
 ### Author:
 * Jorge Banegas (jbanegas@cisco.com)
 *  Feb 2020
 ***
+
+### Important Notes
+* The two test files are include to explore the responses that the api calls returns for the phones
+* The serial number will only display for phones that have a routable ip address from which this flask server will be running on.
+* The method this script is using, is grabbing the ip address for the phone, and then web scraping the phone's web page to grab the serial numbter.
+* If phone does not have an IP address, the serial number will show as "unassigned" and if the ip address is unreachable from the hosted server, the serial number will show as "unaccessible"
 
 ### Prerequisites
 * Python 3
@@ -43,7 +49,7 @@ pip3 install -r requirements.txt file
 
 7. After including your information on the user_env_default.py file, enter the terminal command 
 ```sh
-cp user_env_default.py env_user.py
+cp user_env_default.py user_env.py
 ``` 
 
 8. In main.py file, change to the desired ip address that is routable so people within the same network can visit the site.
@@ -63,6 +69,7 @@ python3 main.py
 ### API Reference/Documentation (VERY USEFUL TO CHECK OUT!):
 * [Original code repo from David Staudt using suds python libary (library being used for this project)] (https://github.com/CiscoDevNet/axl-python-suds-sample)
 * [AXL reference (uses different python library zeep)] (https://paultursan.com/2016/04/getting-started-with-python-cucm-axl-api-programming/)
+* [Risport reference] (https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/cucm/devguide/7_1_2/AXL_DevGuide/serviceability.html#wp1053792)
 
 ## License
 Provided under Cisco Sample Code License, for details see [LICENSE](LICENSE)

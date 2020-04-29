@@ -178,37 +178,13 @@ or implied.
                             <tbody id="myTable">
                                 {% for device in devices %}
                                 <tr>
-                                    <td class="hidden-md-down">{{device.name}}</td>
-                                    <td class="hidden-md-down">{{device.model}}</td>
-                                    <td class="hidden-md-down">{{device.networkLocation}}</td>
-                                    <td class="hidden-md-down">{{device.product}}</td>
-                                    <td class="hidden-md-down">{{device.protocol_side}}</td>
-                                    <td class="hidden-md-down">{{device.callingSearchSpaceName}}</td>
-                                    <td class="hidden-md-down">{{device.devicePoolName}}</td>
-                                    <td class="hidden-md-down">{{device.commonDeviceConfigName}}</td>
-                                    <td class="hidden-md-down">{{device.commonPhoneConfigName}}</td>
-                                    <td class="hidden-md-down">{{device.locationName}}</td>
-                                    <td class="hidden-md-down">{{device.mediaResourceListName}}</td>
-                                    <td class="hidden-md-down">{{device.userHoldMohAudioSourceId}}</td>
-                                    <td class="hidden-md-down">{{device.traceFlag}}</td>
-                                    <td class="hidden-md-down">{{device.mlppIndicationStatus}}</td>
-                                    <td class="hidden-md-down">{{device.preemption}}</td>
-                                    <td class="hidden-md-down">{{device.useTrustedRelayPoint}}</td>
-                                    <td class="hidden-md-down">{{device.retryVideoCallAsAudio}}</td>
-                                    <td class="hidden-md-down">{{device.securityProfileName}}</td>
-                                    <td class="hidden-md-down">{{device.sipProfileName}}</td>
-                                    <td class="hidden-md-down">{{device.cgpnTransformationCssName}}</td>
-                                    <td class="hidden-md-down">{{device.useDevicePoolCgpnTransformCss}}</td>
-                                    <td class="hidden-md-down">{{device.geoLocationName}}</td>
-                                    <td class="hidden-md-down">{{device.geoLocationFilterName}}</td>
-                                    <td class="hidden-md-down">{{device.sendGeoLocation}}</td>
-                                    <td class="hidden-md-down">{{device.numberOfButtons}}</td>
-                                    <td class="hidden-md-down">{{device.phoneTemplateName}}</td>
-                                    <td class="hidden-md-down">{{device.primaryPhoneName}}</td>
-                                    <td class="hidden-md-down">{{device.ringSettingIdleBlfAudibleAlert}}</td>
-                                    <td class="hidden-md-down">{{device.ringSettingBusyBlfAudibleAlert}}</td>
-                                    <td class="hidden-md-down">{{device.userLocale}}</td>
-                                    <td class="hidden-md-down">{{device.networkLocale}}</td>
+                                    <td style="text-align:center" class="hidden-md-down">{{device.name}}</td>
+                                    <td style="text-align:center" class="hidden-md-down">{{device.model}}</td>
+                                    <td style="text-align:center" class="hidden-md-down">{{device.ip_address}}</td>
+                                    <td style="text-align:center" class="hidden-md-down">{{device.serial_number}}</td>
+                                    <td style="text-align:center" class="hidden-md-down">{{device.networkLocation}}</td>
+                                    <td style="text-align:center" class="hidden-md-down">{{device.product}}</td>
+                                    <td style="text-align:center" class="hidden-md-down">{{locationName}}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody id="myTable">
