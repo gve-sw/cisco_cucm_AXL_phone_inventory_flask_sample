@@ -22,7 +22,7 @@ app = Flask(__name__)
 def main():
 
     # this will be the header for the html table to display the set of information
-    header = ['Name','model','ip_address','serial','network_loc','product','location']
+    header = ['Name','model','ip_address','serial','network_loc','product','searchSpace','poolName', 'MAC']
     device_list = []
 
     # makes call to retrieve a list of devices with several attributes from the CUCM evironment 
@@ -44,12 +44,15 @@ def main():
                 device["networkLocation"] = device_axl["networkLocation"]
                 device["product"] = device_axl["product"] 
                 device["locationName"] = device_axl["locationName"]
+                device["callingSearchSpaceName"] = device_axl["callingSearchSpaceName"]["value"]
+                device["devicePoolName"] = device_axl["devicePoolName"]["value"]
                 
                 if device["ip_address"] is None:
                     device["serial_number"] = "unassigned"
                 else:
                     # calling function to retrieve serial number based on IP address (visiting the phone web page)
-                    device["serial_number"] = functions.get_serial(device["ip_address"])
+                    device["mac"] =functions.get_serial(device["ip_address"])[0]
+                    device["serial_number"] = functions.get_serial(device["ip_address"])[1]
 
                 device_list.append(device)
 

@@ -35,6 +35,7 @@ import urllib.request
 import ssl
 import user_env
 from bs4 import BeautifulSoup
+global mac
 
 # function for api AXL request 
 def axl_request():
@@ -131,7 +132,7 @@ def risport_request():
 
 # function to extract serial number from the phone's web page
 def get_serial(ip_address):
-    url = 'http://' + ip_address + '/CGI/Java/Serviceability?adapter=device.statistics.device'
+    url = 'http://' + ip_address 
     try:
         fhand = urllib.request.urlopen(url).read()
     except:
@@ -148,11 +149,12 @@ def get_serial(ip_address):
         bText = phoneData[bTag].text.strip()
         if bText in searchList :
             if bText != 'UDI' :
-                print (bText, '\b: ', phoneData[bTag + 1].text)
+                mac=phoneData[bTag + 1].text
             else    :
                 #print ('Phone Model: ', phoneData[bTag + 3].text)
                 #print ('Hardware Revision: ', phoneData[bTag + 7].text)
-                return phoneData[bTag + 9].text
+                d=[mac, phoneData[bTag + 3].text]
+                return d
 
 #axl_request()
 #risport_request()
